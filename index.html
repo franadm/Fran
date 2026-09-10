@@ -8,7 +8,7 @@
     <!-- Favicon para la pestaña del navegador -->
     <link rel="icon" type="image/png" href="logo.png">
 
-    <!-- Metatags Open Graph (Vista previa para WhatsApp, Telegram y Redes Sociales) -->
+    <!-- Metatags Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Fran ADM | Ingeniero Informático">
     <meta property="og:description" content="Desarrollo web, sistemas de turnos, bots de IA, auditoría de redes, desbloqueo móvil y soluciones digitales.">
@@ -83,7 +83,7 @@
             pointer-events: none;
         }
 
-        /* Contenedor principal estilo tarjeta móvil */
+        /* Contenedor principal */
         .container {
             position: relative;
             z-index: 1;
@@ -96,7 +96,7 @@
             text-align: center;
         }
 
-        /* Avatar / Logo con resplandor neón */
+        /* Avatar / Logo */
         .avatar-wrapper {
             width: 120px;
             height: 120px;
@@ -136,7 +136,7 @@
         .card-link {
             width: 100%;
             text-decoration: none;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             cursor: pointer;
         }
 
@@ -206,68 +206,79 @@
             transform: translateX(4px);
         }
 
-        /* Redes Sociales */
-        .socials {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-bottom: 30px;
-        }
-
-        .social-btn {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            backdrop-filter: blur(12px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-size: 1.5rem;
-            text-decoration: none;
-            transition: all 0.8s ease, transform 0.3s ease;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-        }
-
-        .social-btn:hover {
-            transform: translateY(-3px);
-            border-color: var(--glow-border);
-            color: var(--primary-color);
-            box-shadow: 0 8px 20px var(--glow-shadow);
-        }
-
-        /* ACCORDION DE PREGUNTAS FRECUENTES (FAQ) */
+        /* SECCIÓN DESPLEGABLE DE PREGUNTAS FRECUENTES (Ubicar debajo de Mis Servicios) */
         .faq-section {
             width: 100%;
             margin-bottom: 24px;
             text-align: left;
         }
 
-        .faq-title {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #ffffff;
-            margin-bottom: 14px;
+        .faq-title-btn {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 16px 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
 
-        .faq-title i {
+        .faq-title-btn:hover {
+            border-color: var(--glow-border);
+            box-shadow: 0 6px 20px var(--glow-shadow);
+        }
+
+        .faq-title-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .faq-title-left i {
             color: var(--primary-color);
             transition: color 0.8s ease;
         }
 
+        .faq-main-chevron {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            transition: transform 0.35s ease, color 0.8s ease;
+        }
+
+        .faq-section.open .faq-main-chevron {
+            transform: rotate(180deg);
+            color: var(--primary-color);
+        }
+
         .faq-container {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), opacity 0.3s ease, margin-top 0.3s ease;
             display: flex;
             flex-direction: column;
             gap: 10px;
+            margin-top: 0;
+        }
+
+        .faq-section.open .faq-container {
+            max-height: 1000px;
+            opacity: 1;
+            margin-top: 12px;
+            transition: max-height 0.5s cubic-bezier(0.9, 0, 0.8, 0.2), opacity 0.4s ease, margin-top 0.3s ease;
         }
 
         .faq-item {
-            background: var(--card-bg);
+            background: rgba(18, 22, 31, 0.85);
             border: 1px solid var(--card-border);
             border-radius: 14px;
             overflow: hidden;
@@ -317,6 +328,38 @@
             transition: max-height 0.35s cubic-bezier(0.9, 0, 0.8, 0.2), padding 0.35s ease;
         }
 
+        /* Redes Sociales */
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .social-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: all 0.8s ease, transform 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            border-color: var(--glow-border);
+            color: var(--primary-color);
+            box-shadow: 0 8px 20px var(--glow-shadow);
+        }
+
         /* Pie de página */
         .footer {
             margin-top: auto;
@@ -325,7 +368,7 @@
             color: #5d6370;
         }
 
-        /* ESTILOS DEL MODAL / COTIZADOR INTERACTIVO */
+        /* ESTILOS DEL MODAL INTERACTIVO */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -626,7 +669,7 @@
 </head>
 <body>
 
-    <!-- Fondo de lluvia Matrix -->
+    <!-- Fondo Matrix -->
     <canvas id="matrix-bg"></canvas>
 
     <div class="container">
@@ -655,21 +698,18 @@
             </div>
         </div>
 
-        <!-- Botones de Redes Sociales -->
-        <div class="socials">
-            <a href="https://www.instagram.com/fran_adm1/" target="_blank" class="social-btn" title="Instagram" onclick="playAudio('click')">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-            <a href="https://wa.me/5493858461464" target="_blank" class="social-btn" title="WhatsApp" onclick="playAudio('click')">
-                <i class="fa-brands fa-whatsapp"></i>
-            </a>
-        </div>
+        <!-- SECCIÓN DE PREGUNTAS FRECUENTES (UBICADA JUSTO DEBAJO DE MIS SERVICIOS) -->
+        <div class="faq-section" id="faqMainSection">
+            <button class="faq-title-btn" onclick="toggleMainFaqSection()">
+                <div class="faq-title-left">
+                    <i class="fa-solid fa-circle-question"></i>
+                    <span>Preguntas Frecuentes</span>
+                </div>
+                <i class="fa-solid fa-chevron-down faq-main-chevron"></i>
+            </button>
 
-        <!-- SECCIÓN DE PREGUNTAS FRECUENTES (FAQ ACCORDION) -->
-        <div class="faq-section">
-            <h3 class="faq-title"><i class="fa-solid fa-circle-question"></i> Preguntas Frecuentes</h3>
             <div class="faq-container">
-                <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-item" onclick="toggleFaq(this, event)">
                     <div class="faq-header">
                         <span>¿Cuáles son las formas de pago?</span>
                         <i class="fa-solid fa-chevron-down faq-icon-chevron"></i>
@@ -679,7 +719,7 @@
                     </div>
                 </div>
 
-                <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-item" onclick="toggleFaq(this, event)">
                     <div class="faq-header">
                         <span>¿Cuáles son los plazos de entrega?</span>
                         <i class="fa-solid fa-chevron-down faq-icon-chevron"></i>
@@ -689,7 +729,7 @@
                     </div>
                 </div>
 
-                <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-item" onclick="toggleFaq(this, event)">
                     <div class="faq-header">
                         <span>¿Qué incluye el soporte posventa?</span>
                         <i class="fa-solid fa-chevron-down faq-icon-chevron"></i>
@@ -699,7 +739,7 @@
                     </div>
                 </div>
 
-                <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-item" onclick="toggleFaq(this, event)">
                     <div class="faq-header">
                         <span>¿Cómo es la metodología de trabajo?</span>
                         <i class="fa-solid fa-chevron-down faq-icon-chevron"></i>
@@ -709,6 +749,16 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Redes Sociales -->
+        <div class="socials">
+            <a href="https://www.instagram.com/fran_adm1/" target="_blank" class="social-btn" title="Instagram" onclick="playAudio('click')">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://wa.me/5493858461464" target="_blank" class="social-btn" title="WhatsApp" onclick="playAudio('click')">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
         </div>
 
         <!-- Footer -->
@@ -728,7 +778,7 @@
                 <button class="close-btn" onclick="closeModal()">✕</button>
             </div>
 
-            <!-- PASO 1: Servicios requeridos -->
+            <!-- PASO 1: Servicios -->
             <div id="step1" class="step-content">
                 <p class="subtitle-step">Paso 1 de 4</p>
                 <h2 class="step-title">¿Qué servicio necesitas?</h2>
@@ -805,10 +855,8 @@
                 <button class="btn-next" onclick="nextStep(2)">Siguiente ></button>
             </div>
 
-            <!-- PASO 2: Completamente Dinámico e Inteligente -->
-            <div id="step2" class="step-content hidden">
-                <!-- Se genera dinámicamente mediante JS -->
-            </div>
+            <!-- PASO 2: Dinámico -->
+            <div id="step2" class="step-content hidden"></div>
 
             <!-- PASO 3: Urgencia / Plazo -->
             <div id="step3" class="step-content hidden">
@@ -857,7 +905,7 @@
                 </div>
             </div>
 
-            <!-- PASO 5: Resumen y envío a WhatsApp -->
+            <!-- PASO 5: Resumen -->
             <div id="step5" class="step-content hidden">
                 <p class="subtitle-step">Propuesta Lista</p>
                 <h2 class="step-title" id="greetingTitle">¡Excelente!</h2>
@@ -882,9 +930,8 @@
         </div>
     </div>
 
-    <!-- SCRIPTS INTEGRADOS -->
     <script>
-        /* === REGISTRO PWA SERVICE WORKER === */
+        /* Service Worker PWA */
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js').catch(err => {
@@ -893,7 +940,7 @@
             });
         }
 
-        /* === CAMBIO AUTOMÁTICO DE TEMA NEÓN CADA 5 SEGUNDOS === */
+        /* CAMBIO AUTOMÁTICO DE TEMA CADA 5 SEGUNDOS */
         const themes = ['matrix', 'blue', 'violet'];
         let currentThemeIndex = 0;
 
@@ -906,13 +953,12 @@
             }
         }
 
-        // Bucle automático cada 5000 milisegundos (5 segundos)
         setInterval(() => {
             currentThemeIndex = (currentThemeIndex + 1) % themes.length;
             setTheme(themes[currentThemeIndex]);
         }, 5000);
 
-        /* === EFECTOS DE AUDIO RETRO / SCI-FI ACTIVO SIN BOTONES === */
+        /* SISTEMA DE AUDIO SINTETIZADO */
         let audioCtx = null;
 
         function initAudio() {
@@ -921,7 +967,6 @@
             }
         }
 
-        // Inicializar AudioContext automáticamente con la primera interacción del usuario
         document.addEventListener('click', initAudio, { once: true });
 
         function playAudio(type) {
@@ -964,11 +1009,11 @@
                     osc.stop(now + 0.35);
                 }
             } catch (e) {
-                console.log('Audio no inicializado aún');
+                console.log('Audio pending user gesture');
             }
         }
 
-        /* === FONDO MATRIX DINÁMICO QUE RESPONDE AL TEMA AUTOMÁTICO === */
+        /* FONDO MATRIX */
         const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
 
@@ -1004,8 +1049,16 @@
         }
         setInterval(drawMatrix, 35);
 
-        /* === PREGUNTAS FRECUENTES (FAQ ACCORDION) === */
-        function toggleFaq(element) {
+        /* DESPLEGAR CONTENEDOR PRINCIPAL DE PREGUNTAS FRECUENTES */
+        function toggleMainFaqSection() {
+            playAudio('click');
+            const mainSection = document.getElementById('faqMainSection');
+            mainSection.classList.toggle('open');
+        }
+
+        /* ACCORDION DE CADA PREGUNTA INDIVIDUAL */
+        function toggleFaq(element, event) {
+            event.stopPropagation();
             playAudio('click');
             const isActive = element.classList.contains('active');
             document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
@@ -1014,7 +1067,7 @@
             }
         }
 
-        /* === LÓGICA DEL COTIZADOR Y PERSISTENCIA (LOCALSTORAGE) === */
+        /* COTIZADOR Y NAVEGACIÓN MODAL */
         const PHONE_NUMBER = "5493858461464";
 
         let currentStep = 1;
@@ -1049,7 +1102,7 @@
                         nextStep(parsed.currentStep, false);
                     }
                 } catch (e) {
-                    console.log('Error restaurando estado anterior.');
+                    console.log('Error restaurando estado.');
                 }
             }
         }
