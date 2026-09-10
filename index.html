@@ -68,7 +68,7 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            transition: background-color 0.4s ease;
+            transition: background-color 0.8s ease, color 0.8s ease;
         }
 
         /* Canvas para fondo de lluvia estilo Matrix */
@@ -105,7 +105,7 @@
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             box-shadow: 0 0 25px var(--glow-shadow);
             margin-bottom: 20px;
-            transition: all 0.4s ease;
+            transition: all 0.8s ease;
         }
 
         .avatar {
@@ -150,7 +150,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.8s ease, transform 0.3s ease;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
@@ -179,7 +179,7 @@
             justify-content: center;
             font-size: 1.2rem;
             color: var(--primary-color);
-            transition: all 0.3s ease;
+            transition: all 0.8s ease;
         }
 
         .card-info h3 {
@@ -198,7 +198,7 @@
         .card-arrow {
             color: #6c757d;
             font-size: 1rem;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, color 0.8s ease;
         }
 
         .card:hover .card-arrow {
@@ -227,7 +227,7 @@
             color: #ffffff;
             font-size: 1.5rem;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.8s ease, transform 0.3s ease;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         }
 
@@ -257,6 +257,7 @@
 
         .faq-title i {
             color: var(--primary-color);
+            transition: color 0.8s ease;
         }
 
         .faq-container {
@@ -292,7 +293,7 @@
         .faq-icon-chevron {
             font-size: 0.8rem;
             color: var(--text-muted);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, color 0.8s ease;
         }
 
         .faq-item.active .faq-icon-chevron {
@@ -315,92 +316,6 @@
             padding: 0 16px 14px;
             transition: max-height 0.35s cubic-bezier(0.9, 0, 0.8, 0.2), padding 0.35s ease;
         }
-
-        /* CONTROLES FLOTANTES (SELECTOR DE TEMAS Y AUDIO) */
-        .floating-controls {
-            position: fixed;
-            top: 16px;
-            right: 16px;
-            z-index: 90;
-            display: flex;
-            gap: 10px;
-        }
-
-        .control-btn {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: rgba(18, 22, 31, 0.85);
-            border: 1px solid var(--card-border);
-            backdrop-filter: blur(10px);
-            color: #ffffff;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
-        }
-
-        .control-btn:hover {
-            border-color: var(--glow-border);
-            color: var(--primary-color);
-            transform: scale(1.08);
-        }
-
-        /* Menú desplegable de temas */
-        .theme-menu {
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background: #0f131c;
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            opacity: 0;
-            pointer-events: none;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-        }
-
-        .theme-menu.active {
-            opacity: 1;
-            pointer-events: auto;
-            transform: translateY(0);
-        }
-
-        .theme-option {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            color: #fff;
-            transition: background 0.2s;
-            white-space: nowrap;
-        }
-
-        .theme-option:hover {
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .theme-dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-        }
-
-        .dot-matrix { background: linear-gradient(135deg, #00ff88, #00bfff); }
-        .dot-blue { background: linear-gradient(135deg, #00bfff, #7000ff); }
-        .dot-violet { background: linear-gradient(135deg, #ff007f, #9d00ff); }
 
         /* Pie de página */
         .footer {
@@ -448,7 +363,7 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px var(--glow-shadow);
             position: relative;
             overflow-y: auto;
-            transition: border-color 0.4s ease;
+            transition: border-color 0.8s ease, box-shadow 0.8s ease;
         }
 
         .progress-header {
@@ -470,7 +385,7 @@
             height: 100%;
             width: 25%;
             background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            transition: width 0.3s ease, background 0.4s ease;
+            transition: width 0.3s ease, background 0.8s ease;
         }
 
         .close-btn {
@@ -500,6 +415,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 6px;
+            transition: color 0.8s ease;
         }
 
         .step-title {
@@ -544,7 +460,7 @@
             align-items: center;
             justify-content: space-between;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             text-align: left;
             flex-shrink: 0;
         }
@@ -568,6 +484,7 @@
         .option-icon {
             font-size: 1.2rem;
             color: var(--primary-color);
+            transition: color 0.8s ease;
         }
 
         .option-text h4 {
@@ -591,6 +508,7 @@
             justify-content: center;
             font-size: 0.75rem;
             color: transparent;
+            transition: background-color 0.8s ease, border-color 0.8s ease;
         }
 
         .option-card.selected .checkbox-custom {
@@ -648,7 +566,7 @@
             cursor: pointer;
             font-size: 0.95rem;
             box-shadow: 0 4px 15px var(--glow-shadow);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s, box-shadow 0.8s ease, background 0.8s ease;
         }
 
         .btn-next:hover {
@@ -668,6 +586,7 @@
         .price-box {
             border: 1px solid var(--glow-border);
             background: rgba(255, 255, 255, 0.03);
+            transition: border-color 0.8s ease;
         }
 
         .price-amount {
@@ -675,6 +594,7 @@
             font-weight: 800;
             color: var(--primary-color);
             margin-top: 4px;
+            transition: color 0.8s ease;
         }
 
         .btn-whatsapp {
@@ -708,30 +628,6 @@
 
     <!-- Fondo de lluvia Matrix -->
     <canvas id="matrix-bg"></canvas>
-
-    <!-- CONTROLES FLOTANTES: TEMAS Y AUDIO -->
-    <div class="floating-controls">
-        <button class="control-btn" id="audioToggleBtn" title="Activar/Desactivar Sonido Audio Retro" onclick="toggleAudio()">
-            <i class="fa-solid fa-volume-high" id="audioIcon"></i>
-        </button>
-        
-        <div style="position: relative;">
-            <button class="control-btn" title="Cambiar Tema Neón" onclick="toggleThemeMenu()">
-                <i class="fa-solid fa-palette"></i>
-            </button>
-            <div class="theme-menu" id="themeMenu">
-                <div class="theme-option" onclick="setTheme('matrix')">
-                    <span class="theme-dot dot-matrix"></span> Verde Matrix
-                </div>
-                <div class="theme-option" onclick="setTheme('blue')">
-                    <span class="theme-dot dot-blue"></span> Azul Neón
-                </div>
-                <div class="theme-option" onclick="setTheme('violet')">
-                    <span class="theme-dot dot-violet"></span> Violeta Ciberpunk
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="container">
         <!-- Logo de Perfil -->
@@ -992,13 +888,31 @@
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js').catch(err => {
-                    console.log('Modo PWA listo para producción.');
+                    console.log('Modo PWA listo.');
                 });
             });
         }
 
-        /* === EFECTOS DE AUDIO RETRO / SCI-FI (Sintetizador Web Audio API) === */
-        let audioEnabled = true;
+        /* === CAMBIO AUTOMÁTICO DE TEMA NEÓN CADA 5 SEGUNDOS === */
+        const themes = ['matrix', 'blue', 'violet'];
+        let currentThemeIndex = 0;
+
+        function setTheme(themeName) {
+            document.body.className = '';
+            if (themeName === 'blue') {
+                document.body.classList.add('theme-blue');
+            } else if (themeName === 'violet') {
+                document.body.classList.add('theme-violet');
+            }
+        }
+
+        // Bucle automático cada 5000 milisegundos (5 segundos)
+        setInterval(() => {
+            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+            setTheme(themes[currentThemeIndex]);
+        }, 5000);
+
+        /* === EFECTOS DE AUDIO RETRO / SCI-FI ACTIVO SIN BOTONES === */
         let audioCtx = null;
 
         function initAudio() {
@@ -1007,20 +921,12 @@
             }
         }
 
-        function toggleAudio() {
-            audioEnabled = !audioEnabled;
-            const icon = document.getElementById('audioIcon');
-            if (audioEnabled) {
-                icon.className = 'fa-solid fa-volume-high';
-                playAudio('click');
-            } else {
-                icon.className = 'fa-solid fa-volume-xmark';
-            }
-        }
+        // Inicializar AudioContext automáticamente con la primera interacción del usuario
+        document.addEventListener('click', initAudio, { once: true });
 
         function playAudio(type) {
-            if (!audioEnabled) return;
             initAudio();
+            if (!audioCtx) return;
 
             try {
                 const osc = audioCtx.createOscillator();
@@ -1048,45 +954,21 @@
                     osc.stop(now + 0.08);
                 } else if (type === 'success') {
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(523.25, now); // C5
-                    osc.frequency.setValueAtTime(659.25, now + 0.08); // E5
-                    osc.frequency.setValueAtTime(783.99, now + 0.16); // G5
-                    osc.frequency.setValueAtTime(1046.50, now + 0.24); // C6
+                    osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.setValueAtTime(659.25, now + 0.08);
+                    osc.frequency.setValueAtTime(783.99, now + 0.16);
+                    osc.frequency.setValueAtTime(1046.50, now + 0.24);
                     gain.gain.setValueAtTime(0.2, now);
                     gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
                     osc.start(now);
                     osc.stop(now + 0.35);
                 }
             } catch (e) {
-                console.log('Audio no interactuado aún');
+                console.log('Audio no inicializado aún');
             }
         }
 
-        /* === CAMBIADOR DE TEMAS NEÓN DINÁMICO === */
-        function toggleThemeMenu() {
-            playAudio('click');
-            document.getElementById('themeMenu').classList.toggle('active');
-        }
-
-        function setTheme(themeName) {
-            playAudio('step');
-            document.body.className = '';
-            if (themeName === 'blue') {
-                document.body.classList.add('theme-blue');
-            } else if (themeName === 'violet') {
-                document.body.classList.add('theme-violet');
-            }
-            document.getElementById('themeMenu').classList.remove('active');
-            localStorage.setItem('fran_adm_theme', themeName);
-        }
-
-        // Cargar tema guardado
-        const savedTheme = localStorage.getItem('fran_adm_theme');
-        if (savedTheme) {
-            setTheme(savedTheme);
-        }
-
-        /* === FONDO MATRIX QUE RESPONDE AL TEMA === */
+        /* === FONDO MATRIX DINÁMICO QUE RESPONDE AL TEMA AUTOMÁTICO === */
         const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
 
@@ -1177,7 +1059,6 @@
         }
 
         function syncUIFromState() {
-            // Sincronizar Paso 1
             document.querySelectorAll('#step1 .option-card').forEach(card => {
                 const text = card.querySelector('h4').innerText.trim();
                 if (formData.servicios.some(s => text.toLowerCase().includes(s.toLowerCase().substring(0, 6)))) {
@@ -1197,7 +1078,6 @@
             document.getElementById('modalCotizador').classList.remove('active');
         }
 
-        /* Generador inteligente del Paso 2 */
         function renderStep2() {
             const step2Container = document.getElementById('step2');
             const servicios = formData.servicios;
