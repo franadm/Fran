@@ -4,10 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fran ADM | Ingeniero Informático</title>
+
+    <!-- Favicon para la pestaña del navegador -->
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <!-- Metatags Open Graph (Vista previa para WhatsApp, Telegram y Redes Sociales) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Fran ADM | Ingeniero Informático">
+    <meta property="og:description" content="Desarrollo web, sistemas de turnos, bots de IA y soluciones digitales a medida.">
+    <meta property="og:image" content="https://franadm.github.io/Fran/logo.png">
+    <meta property="og:url" content="https://franadm.github.io/Fran/">
+
     <!-- Iconos de FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Fuente Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         * {
             box-sizing: border-box;
@@ -199,9 +211,7 @@
             color: #5d6370;
         }
 
-        /* ==========================================
-           ESTILOS DEL MODAL / COTIZADOR INTERACTIVO
-           ========================================== */
+        /* ESTILOS DEL MODAL / COTIZADOR INTERACTIVO */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -492,7 +502,7 @@
         <h1 class="name">Fran ADM</h1>
         <p class="role">Ingeniero Informático</p>
 
-        <!-- Botón de Servicios (Abre el Modal Interactivo) -->
+        <!-- Botón de Servicios -->
         <div class="card-link" onclick="openModal()">
             <div class="card">
                 <div class="card-left">
@@ -510,11 +520,9 @@
 
         <!-- Botones de Redes Sociales -->
         <div class="socials">
-            <!-- Instagram -->
             <a href="https://www.instagram.com/fran_adm1/" target="_blank" class="social-btn" title="Instagram">
                 <i class="fa-brands fa-instagram"></i>
             </a>
-            <!-- WhatsApp directo -->
             <a href="https://wa.me/5493858461464" target="_blank" class="social-btn" title="WhatsApp">
                 <i class="fa-brands fa-whatsapp"></i>
             </a>
@@ -526,9 +534,7 @@
         </div>
     </div>
 
-    <!-- ==========================================
-         ESTRUCTURA DEL MODAL INTERACTIVO
-         ========================================== -->
+    <!-- ESTRUCTURA DEL MODAL INTERACTIVO -->
     <div class="modal-overlay" id="modalCotizador">
         <div class="modal-card">
             <!-- Encabezado con barra de progreso -->
@@ -726,7 +732,7 @@
         setInterval(drawMatrix, 35);
 
         /* === LÓGICA DEL COTIZADOR INTERACTIVO === */
-        const PHONE_NUMBER = "5493858461464"; // Tu número de WhatsApp
+        const PHONE_NUMBER = "5493858461464";
 
         let formData = {
             servicios: [],
