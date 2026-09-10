@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fran ADM | Ingeniero Informático</title>
+    <!-- Iconos de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Fuente Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #090a0f;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Canvas para fondo de lluvia estilo Matrix */
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.18;
+        }
+
+        /* Contenedor principal estilo tarjeta móvil */
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 440px;
+            padding: 48px 20px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* Avatar / Logo con resplandor neón */
+        .avatar-wrapper {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, #00ff88, #00bfff);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.35);
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #000000;
+        }
+
+        /* Títulos */
+        .name {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .role {
+            font-size: 0.95rem;
+            color: #9ba1b0;
+            margin-bottom: 32px;
+            font-weight: 400;
+        }
+
+        /* Tarjeta de Servicios */
+        .card-link {
+            width: 100%;
+            text-decoration: none;
+            margin-bottom: 24px;
+            cursor: pointer;
+        }
+
+        .card {
+            background: rgba(18, 22, 31, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 255, 136, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+            background: rgba(25, 31, 44, 0.85);
+        }
+
+        .card-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-align: left;
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(0, 255, 136, 0.08);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #00ff88;
+        }
+
+        .card-info h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .card-info p {
+            font-size: 0.85rem;
+            color: #9ba1b0;
+            line-height: 1.3;
+        }
+
+        .card-arrow {
+            color: #6c757d;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-arrow {
+            color: #00ff88;
+            transform: translateX(4px);
+        }
+
+        /* Redes Sociales */
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .social-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: rgba(18, 22, 31, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 255, 136, 0.6);
+            color: #00ff88;
+            box-shadow: 0 8px 20px rgba(0, 255, 136, 0.2);
+        }
+
+        /* Pie de página */
+        .footer {
+            margin-top: auto;
+            padding: 30px 0 20px;
+            font-size: 0.8rem;
+            color: #5d6370;
+        }
+
+        /* ==========================================
+           ESTILOS DEL MODAL / COTIZADOR INTERACTIVO
+           ========================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 7, 10, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            width: 100%;
+            max-width: 440px;
+            background: #0f131c;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 255, 136, 0.15);
+            position: relative;
+        }
+
+        .progress-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar-bg {
+            flex: 1;
+            height: 6px;
+            background-color: #1a202c;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 25%;
+            background: linear-gradient(90deg, #00ff88, #00bfff);
+            transition: width 0.3s ease;
+        }
+
+        .close-btn {
+            background: #1a202c;
+            border: none;
+            color: #9ba1b0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+            background: #2d3748;
+        }
+
+        .subtitle-step {
+            color: #00ff88;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .step-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: #ffffff;
+        }
+
+        .step-desc {
+            color: #9ba1b0;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .option-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .option-card:hover {
+            border-color: rgba(0, 255, 136, 0.5);
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .option-card.selected {
+            border-color: #00ff88;
+            background: rgba(0, 255, 136, 0.12);
+        }
+
+        .option-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .option-icon {
+            font-size: 1.2rem;
+            color: #00ff88;
+        }
+
+        .option-text h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .option-text p {
+            font-size: 0.78rem;
+            color: #9ba1b0;
+        }
+
+        .checkbox-custom {
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: transparent;
+        }
+
+        .option-card.selected .checkbox-custom {
+            background-color: #00ff88;
+            border-color: #00ff88;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            margin-bottom: 20px;
+            transition: border-color 0.2s;
+        }
+
+        .input-field:focus {
+            border-color: #00ff88;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-back {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            width: 46px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background 0.2s;
+        }
+
+        .btn-back:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-next {
+            flex: 1;
+            background: linear-gradient(135deg, #00ff88, #00bfff);
+            border: none;
+            color: #000;
+            font-weight: 800;
+            padding: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.4);
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .price-box {
+            border: 1px solid rgba(0, 255, 136, 0.4);
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .price-amount {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #00ff88;
+            margin-top: 4px;
+        }
+
+        .btn-whatsapp {
+            background-color: #25d366;
+            color: #fff;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            margin-top: 16px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Fondo de lluvia Matrix -->
+    <canvas id="matrix-bg"></canvas>
+
+    <div class="container">
+        <!-- Logo de Perfil -->
+        <div class="avatar-wrapper">
+            <img src="FRAN ADMO LOGO.PNG" alt="Fran ADM Logo" class="avatar">
+        </div>
+
+        <!-- Nombre y Título -->
+        <h1 class="name">Fran ADM</h1>
+        <p class="role">Ingeniero Informático</p>
+
+        <!-- Botón de Servicios (Abre el Modal Interactivo) -->
+        <div class="card-link" onclick="openModal()">
+            <div class="card">
+                <div class="card-left">
+                    <div class="icon-box">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <div class="card-info">
+                        <h3>Mis Servicios</h3>
+                        <p>Webs, apps y soluciones digitales a medida</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-chevron-right card-arrow"></i>
+            </div>
+        </div>
+
+        <!-- Botones de Redes Sociales -->
+        <div class="socials">
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/fran_adm1/" target="_blank" class="social-btn" title="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <!-- WhatsApp directo -->
+            <a href="https://wa.me/5493858461464" target="_blank" class="social-btn" title="WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Una creación de <strong>Fran ADM</strong> · 2026
+        </div>
+    </div>
+
+    <!-- ==========================================
+         ESTRUCTURA DEL MODAL INTERACTIVO
+         ========================================== -->
+    <div class="modal-overlay" id="modalCotizador">
+        <div class="modal-card">
+            <!-- Encabezado con barra de progreso -->
+            <div class="progress-header">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBar"></div>
+                </div>
+                <button class="close-btn" onclick="closeModal()">✕</button>
+            </div>
+
+            <!-- PASO 1: Servicios requeridos -->
+            <div id="step1" class="step-content">
+                <p class="subtitle-step">Paso 1 de 4</p>
+                <h2 class="step-title">¿Qué servicio necesitas?</h2>
+                <p class="step-desc">Selecciona una o varias opciones para tu proyecto.</p>
+
+                <div class="options-grid">
+                    <div class="option-card" onclick="toggleOption(this, 'servicio', 'Sitio Web / Landing')">
+                        <div class="option-left">
+                            <i class="fa-solid fa-globe option-icon"></i>
+                            <div class="option-text">
+                                <h4>Sitio Web / Landing Page</h4>
+                                <p>Web corporativa, catálogo o portafolio</p>
+                            </div>
+                        </div>
+                        <div class="checkbox-custom">✓</div>
+                    </div>
+
+                    <div class="option-card" onclick="toggleOption(this, 'servicio', 'Sistema de Turnos / Reservas')">
+                        <div class="option-left">
+                            <i class="fa-solid fa-calendar-check option-icon"></i>
+                            <div class="option-text">
+                                <h4>Sistema de Turnos / Reservas</h4>
+                                <p>Gestión automatizada de citas y agenda</p>
+                            </div>
+                        </div>
+                        <div class="checkbox-custom">✓</div>
+                    </div>
+
+                    <div class="option-card" onclick="toggleOption(this, 'servicio', 'Bot de IA / WhatsApp')">
+                        <div class="option-left">
+                            <i class="fa-solid fa-robot option-icon"></i>
+                            <div class="option-text">
+                                <h4>Bot de IA / Automatización</h4>
+                                <p>Atención automatizada por WhatsApp 24/7</p>
+                            </div>
+                        </div>
+                        <div class="checkbox-custom">✓</div>
+                    </div>
+                </div>
+
+                <button class="btn-next" onclick="nextStep(2)">Siguiente ></button>
+            </div>
+
+            <!-- PASO 2: Rubro del negocio -->
+            <div id="step2" class="step-content hidden">
+                <p class="subtitle-step">Paso 2 de 4</p>
+                <h2 class="step-title">¿Cuál es el rubro de tu negocio?</h2>
+                <p class="step-desc">Nos ayuda a adaptar la arquitectura del proyecto.</p>
+
+                <div class="options-grid">
+                    <div class="option-card" onclick="selectSingle(this, 'rubro', 'Barbería / Estética / Salud')">
+                        <div class="option-left">
+                            <i class="fa-solid fa-scissors option-icon"></i>
+                            <h4>Barbería / Estética / Salud</h4>
+                        </div>
+                    </div>
+                    <div class="option-card" onclick="selectSingle(this, 'rubro', 'Gastronomía / Restaurante')">
+                        <div class="option-left">
+                            <i class="fa-solid fa-utensils option-icon"></i>
+                            <h4>Gastronomía / Restaurante</h4>
+                        </div>
+                    </div>
+                    <div class="option-card" onclick="selectSingle(this, 'rubro', 'Comercio / Servicios / Otro')">
+                        <div class="option-left">
+                            <i class="fa-solid fa-store option-icon"></i>
+                            <h4>Comercio / Servicios / Otro</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn-back" onclick="nextStep(1)">‹</button>
+                    <button class="btn-next" onclick="nextStep(3)">Siguiente ></button>
+                </div>
+            </div>
+
+            <!-- PASO 3: Urgencia / Plazo -->
+            <div id="step3" class="step-content hidden">
+                <p class="subtitle-step">Paso 3 de 4</p>
+                <h2 class="step-title">¿Para cuándo lo necesitas?</h2>
+                <p class="step-desc">Selecciona la prioridad de entrega.</p>
+
+                <div class="options-grid">
+                    <div class="option-card" onclick="selectSingle(this, 'plazo', 'Lo antes posible (Urgente)')">
+                        <div class="option-left">
+                            <i class="fa-solid fa-bolt option-icon"></i>
+                            <h4>Lo antes posible (Urgente)</h4>
+                        </div>
+                    </div>
+                    <div class="option-card" onclick="selectSingle(this, 'plazo', 'En 2 a 4 semanas')">
+                        <div class="option-left">
+                            <i class="fa-solid fa-clock option-icon"></i>
+                            <h4>En 2 a 4 semanas</h4>
+                        </div>
+                    </div>
+                    <div class="option-card" onclick="selectSingle(this, 'plazo', 'Sin prisa / Evaluando')">
+                        <div class="option-left">
+                            <i class="fa-solid fa-couch option-icon"></i>
+                            <h4>Sin prisa / Evaluando</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn-back" onclick="nextStep(2)">‹</button>
+                    <button class="btn-next" onclick="nextStep(4)">Siguiente ></button>
+                </div>
+            </div>
+
+            <!-- PASO 4: Nombre -->
+            <div id="step4" class="step-content hidden">
+                <p class="subtitle-step">Paso 4 de 4</p>
+                <h2 class="step-title">¿Cuál es tu nombre?</h2>
+                <p class="step-desc">Para personalizar tu propuesta.</p>
+
+                <input type="text" id="userName" class="input-field" placeholder="Ingresa tu nombre..." autocomplete="off">
+
+                <div class="nav-buttons">
+                    <button class="btn-back" onclick="nextStep(3)">‹</button>
+                    <button class="btn-next" onclick="generateProposal()">Ver Propuesta ></button>
+                </div>
+            </div>
+
+            <!-- PASO 5: Resumen y envío a WhatsApp -->
+            <div id="step5" class="step-content hidden">
+                <p class="subtitle-step">Propuesta Lista</p>
+                <h2 class="step-title" id="greetingTitle">¡Excelente!</h2>
+                <p class="step-desc" id="rubroSummary">Resumen del proyecto a realizar:</p>
+
+                <div class="result-card">
+                    <p style="font-size: 0.85rem; color: #9ba1b0;">Servicios: <strong id="selectedServicesText" style="color: #fff;">-</strong></p>
+                    <p style="font-size: 0.85rem; color: #9ba1b0; margin-top: 6px;">Rubro: <strong id="selectedRubroText" style="color: #fff;">-</strong></p>
+                    <p style="font-size: 0.85rem; color: #9ba1b0; margin-top: 6px;">Plazo: <strong id="selectedPlazoText" style="color: #fff;">-</strong></p>
+                </div>
+
+                <div class="result-card price-box">
+                    <span style="font-size: 0.75rem; letter-spacing: 1px; color: #00ff88; font-weight: 700;">ESTIMACIÓN INICIAL</span>
+                    <div class="price-amount">Presupuesto a medida</div>
+                    <p style="font-size: 0.8rem; color: #9ba1b0; margin-top: 6px;">✓ Desarrollo con tecnologías de alto rendimiento</p>
+                </div>
+
+                <a id="whatsappLink" href="#" target="_blank" class="btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> Enviar consulta a WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de Matrix y Lógica del Cotizador Modal -->
+    <script>
+        /* === FONDO MATRIX === */
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ<>/{}[]=+-*#';
+        const fontSize = 14;
+        let columns = Math.floor(canvas.width / fontSize);
+        let drops = Array(columns).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(9, 10, 15, 0.08)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff88';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 35);
+
+        /* === LÓGICA DEL COTIZADOR INTERACTIVO === */
+        const PHONE_NUMBER = "5493858461464"; // Tu número de WhatsApp
+
+        let formData = {
+            servicios: [],
+            rubro: 'General',
+            plazo: 'A definir',
+            nombre: ''
+        };
+
+        function openModal() {
+            document.getElementById('modalCotizador').classList.add('active');
+            resetForm();
+        }
+
+        function closeModal() {
+            document.getElementById('modalCotizador').classList.remove('active');
+        }
+
+        function nextStep(stepNumber) {
+            document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`step${stepNumber}`).classList.remove('hidden');
+
+            const progressMap = { 1: '25%', 2: '50%', 3: '75%', 4: '90%', 5: '100%' };
+            document.getElementById('progressBar').style.width = progressMap[stepNumber];
+        }
+
+        function toggleOption(element, category, value) {
+            element.classList.toggle('selected');
+            if (formData.servicios.includes(value)) {
+                formData.servicios = formData.servicios.filter(item => item !== value);
+            } else {
+                formData.servicios.push(value);
+            }
+        }
+
+        function selectSingle(element, category, value) {
+            const parent = element.parentElement;
+            parent.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
+            element.classList.add('selected');
+            formData[category] = value;
+        }
+
+        function generateProposal() {
+            const nameInput = document.getElementById('userName').value.trim();
+            formData.nombre = nameInput || 'Cliente';
+
+            document.getElementById('greetingTitle').innerText = `¡Listo, ${formData.nombre}!`;
+            document.getElementById('selectedServicesText').innerText = formData.servicios.length > 0 ? formData.servicios.join(', ') : 'Consulta general de desarrollo';
+            document.getElementById('selectedRubroText').innerText = formData.rubro;
+            document.getElementById('selectedPlazoText').innerText = formData.plazo;
+
+            const message = `Hola Fran! Soy ${formData.nombre}. Completé el formulario en tu web:\n\n` +
+                `📌 *Servicios de interés:* ${formData.servicios.join(', ') || 'Desarrollo web'}\n` +
+                `🏢 *Rubro:* ${formData.rubro}\n` +
+                `⏱️ *Plazo:* ${formData.plazo}\n\n` +
+                `Me gustaría recibir asesoramiento y un presupuesto formal.`;
+
+            const encodedMessage = encodeURIComponent(message);
+            document.getElementById('whatsappLink').href = `https://wa.me/${PHONE_NUMBER}?text=${encodedMessage}`;
+
+            nextStep(5);
+        }
+
+        function resetForm() {
+            formData = { servicios: [], rubro: 'General', plazo: 'A definir', nombre: '' };
+            document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+            document.getElementById('userName').value = '';
+            nextStep(1);
+        }
+    </script>
+</body>
+</html>
