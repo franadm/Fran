@@ -11,7 +11,7 @@
     <!-- Metatags Open Graph (Vista previa para WhatsApp, Telegram y Redes Sociales) -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Fran ADM | Ingeniero Informático">
-    <meta property="og:description" content="Desarrollo web, sistemas de turnos, bots de IA y soluciones digitales a medida.">
+    <meta property="og:description" content="Desarrollo web, sistemas de turnos, bots de IA, auditoría de redes, desbloqueo móvil y soluciones digitales.">
     <meta property="og:image" content="https://franadm.github.io/Fran/logo.png">
     <meta property="og:url" content="https://franadm.github.io/Fran/">
 
@@ -239,12 +239,16 @@
         .modal-card {
             width: 100%;
             max-width: 440px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
             background: #0f131c;
             border: 1px solid rgba(0, 255, 136, 0.3);
             border-radius: 20px;
             padding: 24px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 255, 136, 0.15);
             position: relative;
+            overflow-y: auto;
         }
 
         .progress-header {
@@ -317,6 +321,18 @@
             flex-direction: column;
             gap: 10px;
             margin-bottom: 24px;
+            max-height: 340px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .options-grid::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .options-grid::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 136, 0.3);
+            border-radius: 4px;
         }
 
         .option-card {
@@ -330,6 +346,7 @@
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: left;
+            flex-shrink: 0;
         }
 
         .option-card:hover {
@@ -584,42 +601,47 @@
                         </div>
                         <div class="checkbox-custom">✓</div>
                     </div>
+
+                    <div class="option-card" onclick="toggleOption(this, 'servicio', 'Sistema POS / Control de Stock')">
+                        <div class="option-left">
+                            <i class="fa-solid fa-boxes-stacked option-icon"></i>
+                            <div class="option-text">
+                                <h4>Sistema POS / Control de Stock</h4>
+                                <p>Gestión de inventario, ventas y caja para comercios</p>
+                            </div>
+                        </div>
+                        <div class="checkbox-custom">✓</div>
+                    </div>
+
+                    <div class="option-card" onclick="toggleOption(this, 'servicio', 'Soporte Técnico y Auditoría de Redes')">
+                        <div class="option-left">
+                            <i class="fa-solid fa-wifi option-icon"></i>
+                            <div class="option-text">
+                                <h4>Soporte Técnico y Redes</h4>
+                                <p>Auditoría de redes Wi-Fi, seguridad e infraestructura</p>
+                            </div>
+                        </div>
+                        <div class="checkbox-custom">✓</div>
+                    </div>
+
+                    <div class="option-card" onclick="toggleOption(this, 'servicio', 'Desbloqueo de Dispositivos Móviles')">
+                        <div class="option-left">
+                            <i class="fa-solid fa-unlock-keyhole option-icon"></i>
+                            <div class="option-text">
+                                <h4>Desbloqueo de Celulares</h4>
+                                <p>Liberación de equipos, software y solución de bloqueos</p>
+                            </div>
+                        </div>
+                        <div class="checkbox-custom">✓</div>
+                    </div>
                 </div>
 
                 <button class="btn-next" onclick="nextStep(2)">Siguiente ></button>
             </div>
 
-            <!-- PASO 2: Rubro del negocio -->
+            <!-- PASO 2: Completamente Dinámico e Inteligente según el servicio seleccionado -->
             <div id="step2" class="step-content hidden">
-                <p class="subtitle-step">Paso 2 de 4</p>
-                <h2 class="step-title">¿Cuál es el rubro de tu negocio?</h2>
-                <p class="step-desc">Nos ayuda a adaptar la arquitectura del proyecto.</p>
-
-                <div class="options-grid">
-                    <div class="option-card" onclick="selectSingle(this, 'rubro', 'Barbería / Estética / Salud')">
-                        <div class="option-left">
-                            <i class="fa-solid fa-scissors option-icon"></i>
-                            <h4>Barbería / Estética / Salud</h4>
-                        </div>
-                    </div>
-                    <div class="option-card" onclick="selectSingle(this, 'rubro', 'Gastronomía / Restaurante')">
-                        <div class="option-left">
-                            <i class="fa-solid fa-utensils option-icon"></i>
-                            <h4>Gastronomía / Restaurante</h4>
-                        </div>
-                    </div>
-                    <div class="option-card" onclick="selectSingle(this, 'rubro', 'Comercio / Servicios / Otro')">
-                        <div class="option-left">
-                            <i class="fa-solid fa-store option-icon"></i>
-                            <h4>Comercio / Servicios / Otro</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="nav-buttons">
-                    <button class="btn-back" onclick="nextStep(1)">‹</button>
-                    <button class="btn-next" onclick="nextStep(3)">Siguiente ></button>
-                </div>
+                <!-- Se genera dinámicamente mediante JS -->
             </div>
 
             <!-- PASO 3: Urgencia / Plazo -->
@@ -673,18 +695,18 @@
             <div id="step5" class="step-content hidden">
                 <p class="subtitle-step">Propuesta Lista</p>
                 <h2 class="step-title" id="greetingTitle">¡Excelente!</h2>
-                <p class="step-desc" id="rubroSummary">Resumen del proyecto a realizar:</p>
+                <p class="step-desc">Resumen de la consulta:</p>
 
                 <div class="result-card">
                     <p style="font-size: 0.85rem; color: #9ba1b0;">Servicios: <strong id="selectedServicesText" style="color: #fff;">-</strong></p>
-                    <p style="font-size: 0.85rem; color: #9ba1b0; margin-top: 6px;">Rubro: <strong id="selectedRubroText" style="color: #fff;">-</strong></p>
+                    <p style="font-size: 0.85rem; color: #9ba1b0; margin-top: 6px;"><span id="labelCategorySummary">Detalle / Rubro:</span> <strong id="selectedRubroText" style="color: #fff;">-</strong></p>
                     <p style="font-size: 0.85rem; color: #9ba1b0; margin-top: 6px;">Plazo: <strong id="selectedPlazoText" style="color: #fff;">-</strong></p>
                 </div>
 
                 <div class="result-card price-box">
                     <span style="font-size: 0.75rem; letter-spacing: 1px; color: #00ff88; font-weight: 700;">ESTIMACIÓN INICIAL</span>
                     <div class="price-amount">Presupuesto a medida</div>
-                    <p style="font-size: 0.8rem; color: #9ba1b0; margin-top: 6px;">✓ Desarrollo con tecnologías de alto rendimiento</p>
+                    <p style="font-size: 0.8rem; color: #9ba1b0; margin-top: 6px;">✓ Atención directa y diagnóstico personalizado</p>
                 </div>
 
                 <a id="whatsappLink" href="#" target="_blank" class="btn-whatsapp">
@@ -694,7 +716,7 @@
         </div>
     </div>
 
-    <!-- Script de Matrix y Lógica del Cotizador Modal -->
+    <!-- Script de Matrix y Lógica Adaptativa del Cotizador Modal -->
     <script>
         /* === FONDO MATRIX === */
         const canvas = document.getElementById('matrix-bg');
@@ -731,12 +753,13 @@
         }
         setInterval(drawMatrix, 35);
 
-        /* === LÓGICA DEL COTIZADOR INTERACTIVO === */
+        /* === LÓGICA DEL COTIZADOR INTERACTIVO 100% DINÁMICO === */
         const PHONE_NUMBER = "5493858461464";
 
         let formData = {
             servicios: [],
-            rubro: 'General',
+            rubro: 'General / A consultar',
+            labelSummary: 'Detalle',
             plazo: 'A definir',
             nombre: ''
         };
@@ -750,7 +773,160 @@
             document.getElementById('modalCotizador').classList.remove('active');
         }
 
+        /* Generador inteligente del Paso 2 según la opción marcada en Paso 1 */
+        function renderStep2() {
+            const step2Container = document.getElementById('step2');
+            const servicios = formData.servicios;
+
+            let title = "¿Cuál es el rubro de tu negocio?";
+            let desc = "Nos ayuda a adaptar la arquitectura del proyecto.";
+            let labelSummary = "Rubro";
+            let optionsHtml = "";
+
+            if (servicios.includes('Desbloqueo de Dispositivos Móviles')) {
+                title = "¿Qué marca o dispositivo es?";
+                desc = "Selecciona la marca para evaluar el tipo de servicio o liberación.";
+                labelSummary = "Marca / Equipo";
+                optionsHtml = `
+                    <div class="option-card ${formData.rubro === 'iPhone (iOS)' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'iPhone (iOS)')">
+                        <div class="option-left"><i class="fa-brands fa-apple option-icon"></i><h4>iPhone (iOS)</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Samsung' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Samsung')">
+                        <div class="option-left"><i class="fa-solid fa-mobile-screen-button option-icon"></i><h4>Samsung</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Motorola' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Motorola')">
+                        <div class="option-left"><i class="fa-solid fa-mobile-screen-button option-icon"></i><h4>Motorola</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Xiaomi / Redmi / Poco' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Xiaomi / Redmi / Poco')">
+                        <div class="option-left"><i class="fa-solid fa-mobile-screen-button option-icon"></i><h4>Xiaomi / Redmi / Poco</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'LG / ZTE / TCL / Otro Android' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'LG / ZTE / TCL / Otro Android')">
+                        <div class="option-left"><i class="fa-solid fa-mobile-screen-button option-icon"></i><h4>LG / ZTE / TCL / Otro Android</h4></div>
+                    </div>`;
+            } else if (servicios.includes('Sitio Web / Landing')) {
+                title = "¿Qué tipo de sitio web necesitas?";
+                desc = "Selecciona la estructura que mejor se adapta a tu objetivo.";
+                labelSummary = "Tipo de Web";
+                optionsHtml = `
+                    <div class="option-card ${formData.rubro === 'Landing Page / Página de Ventas' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Landing Page / Página de Ventas')">
+                        <div class="option-left"><i class="fa-solid fa-rocket option-icon"></i><h4>Landing Page / Página de Ventas</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Sitio Institucional / Empresa' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Sitio Institucional / Empresa')">
+                        <div class="option-left"><i class="fa-solid fa-building option-icon"></i><h4>Sitio Institucional / Empresa</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Catálogo / Tienda Online (E-commerce)' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Catálogo / Tienda Online (E-commerce)')">
+                        <div class="option-left"><i class="fa-solid fa-cart-shopping option-icon"></i><h4>Catálogo / Tienda Online</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Portafolio / Galería Profesional' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Portafolio / Galería Profesional')">
+                        <div class="option-left"><i class="fa-solid fa-briefcase option-icon"></i><h4>Portafolio / Galería Profesional</h4></div>
+                    </div>`;
+            } else if (servicios.includes('Sistema de Turnos / Reservas')) {
+                title = "¿Para qué tipo de negocio es el sistema de turnos?";
+                desc = "Nos ayuda a definir el flujo de agenda y notificaciones.";
+                labelSummary = "Tipo de Servicio";
+                optionsHtml = `
+                    <div class="option-card ${formData.rubro === 'Barbería / Peluquería / Estética' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Barbería / Peluquería / Estética')">
+                        <div class="option-left"><i class="fa-solid fa-scissors option-icon"></i><h4>Barbería / Peluquería / Estética</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Salud / Médico / Consultorio' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Salud / Médico / Consultorio')">
+                        <div class="option-left"><i class="fa-solid fa-user-doctor option-icon"></i><h4>Salud / Médico / Consultorio</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Canchas Deportivas / Eventos' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Canchas Deportivas / Eventos')">
+                        <div class="option-left"><i class="fa-solid fa-futbol option-icon"></i><h4>Canchas Deportivas / Eventos</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Servicios Profesionales / Asesorías' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Servicios Profesionales / Asesorías')">
+                        <div class="option-left"><i class="fa-solid fa-user-tie option-icon"></i><h4>Servicios Profesionales / Asesorías</h4></div>
+                    </div>`;
+            } else if (servicios.includes('Bot de IA / WhatsApp')) {
+                title = "¿Qué función principal cumplirá el Bot?";
+                desc = "Define la tarea principal del asistente de inteligencia artificial.";
+                labelSummary = "Función del Bot";
+                optionsHtml = `
+                    <div class="option-card ${formData.rubro === 'Atención al Cliente y Respuestas 24/7' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Atención al Cliente y Respuestas 24/7')">
+                        <div class="option-left"><i class="fa-solid fa-comments option-icon"></i><h4>Atención al Cliente y Respuestas 24/7</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Agendamiento Automático de Citas' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Agendamiento Automático de Citas')">
+                        <div class="option-left"><i class="fa-solid fa-calendar-plus option-icon"></i><h4>Agendamiento Automático de Citas</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Ventas / Envío de Catálogo y Cotizaciones' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Ventas / Envío de Catálogo')">
+                        <div class="option-left"><i class="fa-solid fa-file-invoice-dollar option-icon"></i><h4>Ventas / Envío de Catálogo</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Soporte Técnico / Recepción de Pedidos' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Soporte / Recepción de Pedidos')">
+                        <div class="option-left"><i class="fa-solid fa-headset option-icon"></i><h4>Soporte / Recepción de Pedidos</h4></div>
+                    </div>`;
+            } else if (servicios.includes('Sistema POS / Control de Stock')) {
+                title = "¿Qué tipo de negocio o comercio tienes?";
+                desc = "Adaptamos el sistema de inventario y caja a tus productos.";
+                labelSummary = "Tipo de Comercio";
+                optionsHtml = `
+                    <div class="option-card ${formData.rubro === 'Kiosco / Despensa / Minimarket' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Kiosco / Despensa / Minimarket')">
+                        <div class="option-left"><i class="fa-solid fa-store option-icon"></i><h4>Kiosco / Despensa / Minimarket</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Local de Ropa / Indumentaria / Calzado' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Local de Ropa / Indumentaria')">
+                        <div class="option-left"><i class="fa-solid fa-shirt option-icon"></i><h4>Local de Ropa / Indumentaria</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Barbería / Local con Venta de Productos' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Barbería / Local con Venta')">
+                        <div class="option-left"><i class="fa-solid fa-scissors option-icon"></i><h4>Barbería / Local con Venta</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Gastronomía / Bar / Restaurante' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Gastronomía / Bar / Restaurante')">
+                        <div class="option-left"><i class="fa-solid fa-utensils option-icon"></i><h4>Gastronomía / Bar / Restaurante</h4></div>
+                    </div>`;
+            } else if (servicios.includes('Soporte Técnico y Auditoría de Redes')) {
+                title = "¿Qué trabajo técnico necesitas realizar?";
+                desc = "Especifica el tipo de análisis o instalación de red.";
+                labelSummary = "Especialidad Técnica";
+                optionsHtml = `
+                    <div class="option-card ${formData.rubro === 'Auditoría de Seguridad y Cobertura Wi-Fi' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Auditoría de Seguridad y Cobertura Wi-Fi')">
+                        <div class="option-left"><i class="fa-solid fa-wifi option-icon"></i><h4>Auditoría Wi-Fi y Seguridad</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Instalación y Cableado de Red' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Instalación y Cableado de Red')">
+                        <div class="option-left"><i class="fa-solid fa-network-wired option-icon"></i><h4>Instalación y Cableado de Red</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Mantenimiento de PC / Servidores' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Mantenimiento de PC / Servidores')">
+                        <div class="option-left"><i class="fa-solid fa-server option-icon"></i><h4>Mantenimiento de PC / Servidores</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Soporte Informático General' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Soporte Informático General')">
+                        <div class="option-left"><i class="fa-solid fa-wrench option-icon"></i><h4>Soporte Informático General</h4></div>
+                    </div>`;
+            } else {
+                title = "¿Cuál es el rubro de tu negocio?";
+                desc = "Nos ayuda a adaptar la arquitectura del proyecto.";
+                labelSummary = "Rubro";
+                optionsHtml = `
+                    <div class="option-card ${formData.rubro === 'Barbería / Estética / Salud' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Barbería / Estética / Salud')">
+                        <div class="option-left"><i class="fa-solid fa-scissors option-icon"></i><h4>Barbería / Estética / Salud</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Gastronomía / Restaurante' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Gastronomía / Restaurante')">
+                        <div class="option-left"><i class="fa-solid fa-utensils option-icon"></i><h4>Gastronomía / Restaurante</h4></div>
+                    </div>
+                    <div class="option-card ${formData.rubro === 'Comercio / Servicios / Particular' ? 'selected' : ''}" onclick="selectSingle(this, 'rubro', 'Comercio / Servicios / Particular')">
+                        <div class="option-left"><i class="fa-solid fa-store option-icon"></i><h4>Comercio / Servicios / Particular</h4></div>
+                    </div>`;
+            }
+
+            formData.labelSummary = labelSummary;
+
+            step2Container.innerHTML = `
+                <p class="subtitle-step">Paso 2 de 4</p>
+                <h2 class="step-title">${title}</h2>
+                <p class="step-desc">${desc}</p>
+
+                <div class="options-grid">
+                    ${optionsHtml}
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn-back" onclick="nextStep(1)">‹</button>
+                    <button class="btn-next" onclick="nextStep(3)">Siguiente ></button>
+                </div>
+            `;
+        }
+
         function nextStep(stepNumber) {
+            if (stepNumber === 2) {
+                renderStep2();
+            }
+
             document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
             document.getElementById(`step${stepNumber}`).classList.remove('hidden');
 
@@ -778,16 +954,19 @@
             const nameInput = document.getElementById('userName').value.trim();
             formData.nombre = nameInput || 'Cliente';
 
+            const labelRubro = formData.labelSummary || 'Rubro / Detalle';
+
             document.getElementById('greetingTitle').innerText = `¡Listo, ${formData.nombre}!`;
-            document.getElementById('selectedServicesText').innerText = formData.servicios.length > 0 ? formData.servicios.join(', ') : 'Consulta general de desarrollo';
+            document.getElementById('selectedServicesText').innerText = formData.servicios.length > 0 ? formData.servicios.join(', ') : 'Consulta general';
+            document.getElementById('labelCategorySummary').innerText = `${labelRubro}:`;
             document.getElementById('selectedRubroText').innerText = formData.rubro;
             document.getElementById('selectedPlazoText').innerText = formData.plazo;
 
             const message = `Hola Fran! Soy ${formData.nombre}. Completé el formulario en tu web:\n\n` +
-                `📌 *Servicios de interés:* ${formData.servicios.join(', ') || 'Desarrollo web'}\n` +
-                `🏢 *Rubro:* ${formData.rubro}\n` +
+                `📌 *Servicio(s):* ${formData.servicios.join(', ') || 'Consulta general'}\n` +
+                `📱 *${labelRubro}:* ${formData.rubro}\n` +
                 `⏱️ *Plazo:* ${formData.plazo}\n\n` +
-                `Me gustaría recibir asesoramiento y un presupuesto formal.`;
+                `Me gustaría recibir asesoramiento y un presupuesto.`;
 
             const encodedMessage = encodeURIComponent(message);
             document.getElementById('whatsappLink').href = `https://wa.me/${PHONE_NUMBER}?text=${encodedMessage}`;
@@ -796,7 +975,7 @@
         }
 
         function resetForm() {
-            formData = { servicios: [], rubro: 'General', plazo: 'A definir', nombre: '' };
+            formData = { servicios: [], rubro: 'General / A consultar', labelSummary: 'Detalle', plazo: 'A definir', nombre: '' };
             document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
             document.getElementById('userName').value = '';
             nextStep(1);
